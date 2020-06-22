@@ -6,8 +6,9 @@ cd react-routers
 ```
 
 Lets create two pages. In simple terms two functional react component:
+
+```javascript
 // App.js
-...
 
 const LandingIndexPage = () => {
   return (
@@ -20,8 +21,8 @@ const AboutPage = () => {
     <h3>About Page</h3>
   );
 };
+```
 
-...
 
 ---
 
