@@ -1,7 +1,7 @@
 import React from 'react';
 import "./App.css";
 
-import { Link, BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { Link, BrowserRouter as Router, Route, Redirect, Switch, useLocation, useHistory } from "react-router-dom";
 import { Users, Location, Match } from './resources/objects';
 
 
@@ -15,6 +15,9 @@ const AboutPage = () => {
 
 // React router pass two props to all the component
 const UsersPage = () => {
+  const { pathname } = useLocation();
+  const history = useHistory();
+
   return (
     <>
       <h3>Users Page</h3>
@@ -32,6 +35,8 @@ const UsersPage = () => {
         <strong>Location Props: </strong>
         <code>{JSON.stringify(Location, null, 2)}</code>
       </p>
+      <p>Current URL: {pathname}</p>
+      <button onClick={() => history.push('/about') } >Go to home</button>
     </>
   );
 };
@@ -65,35 +70,33 @@ const PropsPage = ({ title }) => {
   );
 };
 
-const RedirectPage = () => {
-  return (
-    <h3>Redirect Page</h3>
-  );
-};
-
 const App = () => {
   return (
     <section className="App">
       <Router>
+        <main>
+          <nav>
+            <ul>
+              <li><Link to="/">Landing</Link></li>
+              <li><Link to="/about">About</Link></li>
+              <li><Link to="/users">Users</Link></li>
+              <li><Link to="/props-through-render">Props through render</Link></li>
+              <li><Link to="/404">Redirecting to New page</Link></li>
+            </ul>
+          </nav>
 
-        <Link to="/">Landing</Link>
-        <Link to="/about">About</Link>
-        <Link to="/users">Users</Link>
+          <Switch>
+            <Route exact path="/" component={LandingPage} />
+            <Route exact path="/about" component={AboutPage} />
+            <Route exact path="/users" component={UsersPage} />
+            <Route exact path="/user/:userId" component={UserPage} />
+            {/* Passing function as a component props in Route component using recommended props-through-render */}
+            <Route exact path="/props-through-render" render={(props) => <PropsPage {...props} title={`Props through render`} />} />
 
-        <Link to="/props-through-render">Props through render</Link>
-
-        <Link to="/404">Redirecting to New page</Link>
-
-        <Route exact path="/" component={LandingPage} />
-        <Route exact path="/about" component={AboutPage} />
-        <Route exact path="/users" component={UsersPage} />
-        <Route exact path="/user/:userId" component={UserPage} />
-        {/* Passing function as a component props in Route component using recommended props-through-render */}
-        <Route exact path="/props-through-render" render={(props) => <PropsPage {...props} title={`Props through render`} />} />
-
-        <Redirect exact from="/redirecting" to="/404" />
-        <Route exact path="/404" component={RedirectPage} />
-
+            <Redirect exact from="/redirecting" to="/404" />
+            <Route exact path="/404" render={() => <h1>404: page not found</h1>} />
+          </Switch>
+        </main>
       </Router>
     </section>
   );
