@@ -1,9 +1,9 @@
 import React from 'react';
 import "./App.css";
 
-import { Link, BrowserRouter as Router, Route, Redirect, Switch, useLocation, useHistory } from "react-router-dom";
+import { Link, BrowserRouter as Router, Route, Redirect, Switch, useLocation, useHistory, useRouteMatch } from "react-router-dom";
 import { Users, Location, Match } from './resources/objects';
-
+import { Nestings } from './resources/Nestings';
 
 const LandingPage = () => <h3>Landing Page</h3>;
 
@@ -42,10 +42,7 @@ const UsersPage = () => {
 
 const UserPage = ({ match, location }) => {
   //  destructuring the object when landing on new url route
-  const {
-    params: { userId }
-  } = match;
-
+  const { params: { userId }  } = match;
   console.table(match);
 
   return (
@@ -63,6 +60,7 @@ const UserPage = ({ match, location }) => {
 };
 
 const App = () => {
+
   return (
     <section className="App">
       <Router>
@@ -74,10 +72,16 @@ const App = () => {
               <li><Link to="/users">Users</Link></li>
               <li><Link to="/props-with-render">Props with render</Link></li>
               <li><Link to="/props-with-component">Props with component</Link></li>
+
+              <li>
+                <Link to="/nestings">Nesting the Routers</Link>
+              </li>
+
               <li><Link to="/404">Redirecting to New page</Link></li>
             </ul>
           </nav>
 
+          {/* Use a <Switch> any time we have multiple routes, but you want only one of them to render at a time */}
           <Switch>
             {/* React Router v5 using "exact" inclusive routing */}
             <Route exact path="/" component={LandingPage} />
@@ -91,6 +95,10 @@ const App = () => {
             {/* Passing function as a component props in Route component using recommended props-with-render */}
             <Route exact path="/props-with-render" render={(props) => <PropsPage {...props} title={`Props with render`} />} />
 
+            <Route path="/nestings">
+              <Nestings />
+            </Route>
+
             <Redirect exact from="/redirecting" to="/404" />
             <Route exact path="/404" render={() => <h1>404: page not found</h1>} />
 
@@ -100,5 +108,6 @@ const App = () => {
     </section>
   );
 };
+
 
 export default App;
