@@ -4,6 +4,7 @@ import "./App.css";
 import { Link, BrowserRouter as Router, Route, Redirect, Switch, useLocation, useHistory, useRouteMatch } from "react-router-dom";
 import { Users, Location, Match } from './resources/objects';
 import { Nestings } from './resources/Nestings';
+import { Blocked } from './resources/Blocked';
 
 const LandingPage = () => <h3>Landing Page</h3>;
 
@@ -77,6 +78,10 @@ const App = () => {
                 <Link to="/nestings">Nesting the Routers</Link>
               </li>
 
+              <li>
+                <Link to="/blocking">Blocking Access</Link>
+              </li>
+
               <li><Link to="/404">Redirecting to New page</Link></li>
             </ul>
           </nav>
@@ -98,6 +103,8 @@ const App = () => {
             <Route path="/nestings">
               <Nestings />
             </Route>
+
+            <Route path="/blocking" exact children={<Blocked />} />
 
             <Redirect exact from="/redirecting" to="/404" />
             <Route exact path="/404" render={() => <h1>404: page not found</h1>} />
