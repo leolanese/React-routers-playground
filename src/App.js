@@ -73,15 +73,8 @@ const App = () => {
               <li><Link to="/users">Users</Link></li>
               <li><Link to="/props-with-render">Props with render</Link></li>
               <li><Link to="/props-with-component">Props with component</Link></li>
-
-              <li>
-                <Link to="/nestings">Nesting the Routers</Link>
-              </li>
-
-              <li>
-                <Link to="/blocking">Blocking Access</Link>
-              </li>
-
+              <li><Link to="/nestings">Nesting the Routers</Link></li>
+              <li><Link to="/blocking">Blocking Access</Link></li>
               <li><Link to="/404">Redirecting to New page</Link></li>
             </ul>
           </nav>
