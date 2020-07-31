@@ -1,4 +1,4 @@
-## Basic React routing
+## React routing playground
 
 ```javascript
 npx create-react-app react-routers
